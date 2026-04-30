@@ -1,0 +1,32 @@
+<?php
+class DBController 
+{
+	private $host = "localhost";
+	private $user = "root";
+	private $password = "";
+	private $database = "leave_management";
+	private $port = "3308";
+	private $conn;
+	
+	function __construct() 
+	{
+		$this->conn = $this->connectDB();
+	}
+	
+	function connectDB() 
+	{
+		$conn = mysqli_connect($this->host, $this->user, $this->password, $this->database, $this->port);
+		return $conn;
+	}
+
+	function runQuery($query)
+	{
+		$result = mysqli_query($this->conn, $query);
+		while($row = mysqli_fetch_assoc($result)) {
+			$resultset[] = $row;
+		}		
+		if(!empty($resultset))
+			return $resultset;
+	}
+}
+?>
